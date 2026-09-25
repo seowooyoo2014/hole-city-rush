@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hole City Rush</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./hole-city.css" />
+  </head>
+  <body>
+    <canvas id="gameCanvas" aria-label="Hole City Rush 3D game"></canvas>
+
+    <main class="hud" aria-label="게임 정보">
+      <section class="objective">
+        <span>Hole City Rush</span>
+        <strong id="objectiveText">작은 물건부터 삼키세요</strong>
+        <div class="stage-track" id="stageTrack" aria-label="규모 진행 순서">
+          <i data-stage="0">도시</i><b>›</b><i data-stage="1">메트로</i><b>›</b><i data-stage="2">행성</i><b>›</b><i data-stage="3">태양계</i><b>›</b><i data-stage="4">은하계</i>
+        </div>
+      </section>
+
+      <section class="status" aria-label="점수와 성장 상태">
+        <div>
+          <span>점수</span>
+          <strong id="scoreValue">0</strong>
+        </div>
+        <div>
+          <span>흡수력</span>
+          <strong id="levelValue">0%</strong>
+        </div>
+        <div>
+          <span>규모</span>
+          <strong id="stageValue">도시</strong>
+        </div>
+        <div>
+          <span>다음</span>
+          <strong id="targetValue">상자</strong>
+        </div>
+        <div class="growth-meter" aria-hidden="true">
+          <i id="growthBar"></i>
+        </div>
+        <small id="progressValue">0 / 560</small>
+      </section>
+    </main>
+
+    <div class="center-message" id="centerMessage">
+      <strong>준비</strong>
+      <span>작은 것부터 삼켜 은하계까지 성장</span>
+      <div class="transition-track" id="transitionTrack" aria-hidden="true"></div>
+      <div class="mode-selector" id="modeSelector" role="group" aria-label="전투 품질">
+        <button type="button" data-mode="cinema">영화 모드</button>
+        <button type="button" data-mode="performance">성능 모드</button>
+      </div>
+      <button id="startButton" type="button">시작</button>
+    </div>
+
+    <button class="reset-button" id="resetButton" type="button" title="다시 시작" aria-label="다시 시작">↻</button>
+
+    <div class="touch-pad" id="touchPad" aria-hidden="true">
+      <i id="touchStick"></i>
+    </div>
+
+    <section class="final-cinematic" id="finalCinematic" aria-label="은하계 최종전 영상" hidden>
+      <video id="finalBattleVideo" playsinline preload="metadata" poster="./assets/cinematics/hole_city_final_battle_poster.png?v=3">
+        <source src="./assets/cinematics/hole_city_final_battle.mp4?v=3" type="video/mp4" />
+      </video>
+      <div class="cinematic-vignette" aria-hidden="true"></div>
+      <div class="cinematic-header">
+        <span>HOLE CITY RUSH</span>
+        <strong id="cinematicStatus">90초 최종전 불러오는 중</strong>
+      </div>
+      <div class="cinematic-controls">
+        <button id="cinematicSoundButton" type="button" title="영상 소리 전환">음소거</button>
+        <button id="cinematicSkipButton" type="button">건너뛰기</button>
+      </div>
+    </section>
+
+    <script type="module" src="./hole-city.js?v=20260804-final-cinematic-5"></script>
+  </body>
+</html>
