@@ -1,0 +1,42 @@
+{
+  "source_root": "/Users/seol-eunjin/Documents/game",
+  "copied": [
+    {
+      "source": "hole-city.html",
+      "target": "hole-city.html",
+      "sha256": "734dc4be49c7b999a343fdc20b2dd83868daaa71f908195d1ea0549c61af45f0"
+    },
+    {
+      "source": "hole-city.css",
+      "target": "hole-city.css",
+      "sha256": "2b2e83468de5e444e98cbc2f94128b14437f0ad28e95b63e925cf90c5807f6fc"
+    },
+    {
+      "source": "hole-city.js",
+      "target": "hole-city.js",
+      "sha256": "2d544c5b67bd3bd2d9edb1c32fe632c410da1799a1e9400fe1973faa883e8240"
+    },
+    {
+      "source": "assets/vendor/three.module.js",
+      "target": "assets/vendor/three.module.js",
+      "sha256": "5916c8dfb5f4e3eede312de305345868d4a0a8105383b080c6985565d6e79b46"
+    },
+    {
+      "source": "assets/cinematics/hole_city_final_battle.mp4",
+      "target": "assets/cinematics/hole_city_final_battle.mp4",
+      "sha256": "4b05b8767444985d47e8f4247b698f3d8ab5c7a8f6d716ebcc506c1bd50ff890"
+    },
+    {
+      "source": "assets/cinematics/hole_city_final_battle_poster.png",
+      "target": "assets/cinematics/hole_city_final_battle_poster.png",
+      "sha256": "c015c940a9b6cadf48566cdd62f8feef670bb1017a7868a6063df1eb01957718"
+    }
+  ],
+  "excluded": [
+    "backup archives",
+    "render frames",
+    "editing intermediates",
+    "caches",
+    "personal save data"
+  ]
+}

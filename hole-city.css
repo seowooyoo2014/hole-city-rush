@@ -1,0 +1,435 @@
+:root {
+  color-scheme: dark;
+  --ink: #071015;
+  --panel: rgba(7, 16, 21, .72);
+  --line: rgba(255, 255, 255, .2);
+  --text: #f7fbf5;
+  --muted: rgba(247, 251, 245, .72);
+  --mint: #71e3b4;
+  --amber: #ffd166;
+  --coral: #ff6f61;
+  font-family: Inter, Pretendard, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--ink);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  color: var(--text);
+  user-select: none;
+  touch-action: none;
+}
+
+button {
+  font: inherit;
+}
+
+#gameCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: #9fd4dc;
+}
+
+.hud {
+  position: fixed;
+  inset: 18px 18px auto 18px;
+  z-index: 4;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.objective,
+.status {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, .22);
+  backdrop-filter: blur(14px);
+}
+
+.objective {
+  display: grid;
+  gap: 5px;
+  max-width: min(520px, 58vw);
+  padding: 12px 14px;
+}
+
+.objective span,
+.status span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.objective strong {
+  font-size: 15px;
+  line-height: 1.25;
+}
+
+.stage-track,
+.transition-track {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+}
+
+.stage-track i,
+.transition-track i {
+  color: rgba(247, 251, 245, .45);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.stage-track b,
+.transition-track b {
+  color: rgba(247, 251, 245, .28);
+  font-size: 10px;
+}
+
+.stage-track i.done,
+.transition-track i.done {
+  color: var(--mint);
+}
+
+.stage-track i.current,
+.transition-track i.current {
+  color: var(--amber);
+}
+
+.stage-track i.next,
+.transition-track i.next {
+  color: var(--coral);
+}
+
+.status {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 10px 18px;
+  min-width: 260px;
+  padding: 12px;
+}
+
+.status div {
+  display: grid;
+  gap: 2px;
+}
+
+.status strong {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.growth-meter {
+  grid-column: 1 / -1;
+  height: 7px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .16);
+}
+
+.growth-meter i {
+  display: block;
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--mint), var(--amber), var(--coral));
+  transition: width .18s ease;
+}
+
+.status small {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  text-align: right;
+}
+
+.center-message {
+  position: fixed;
+  left: 50%;
+  bottom: 34px;
+  z-index: 5;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  min-width: min(340px, calc(100vw - 36px));
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(7, 16, 21, .78);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, .3);
+  backdrop-filter: blur(16px);
+  transform: translateX(-50%);
+  transition: opacity .25s ease, transform .25s ease;
+}
+
+.center-message.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 10px);
+}
+
+.center-message strong {
+  font-size: 18px;
+}
+
+.center-message span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.transition-track:empty {
+  display: none;
+}
+
+.mode-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  width: 220px;
+  padding: 3px;
+  border: 1px solid rgba(255, 255, 255, .18);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, .06);
+}
+
+.center-message .mode-selector button {
+  min-height: 32px;
+  border: 0;
+  border-radius: 5px;
+  color: var(--muted);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.center-message .mode-selector button.active {
+  color: #071015;
+  background: var(--mint);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.center-message button {
+  min-width: 110px;
+  min-height: 38px;
+  border: 0;
+  border-radius: 7px;
+  color: #091015;
+  background: var(--amber);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.reset-button {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 5;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--text);
+  background: rgba(7, 16, 21, .64);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .24);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+}
+
+.touch-pad {
+  position: fixed;
+  left: 20px;
+  bottom: 22px;
+  z-index: 4;
+  display: none;
+  width: 118px;
+  height: 118px;
+  border: 1px solid rgba(255, 255, 255, .18);
+  border-radius: 50%;
+  background: rgba(7, 16, 21, .36);
+  backdrop-filter: blur(10px);
+}
+
+.touch-pad i {
+  position: absolute;
+  left: 39px;
+  top: 39px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .8);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .2);
+}
+
+.final-cinematic {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #03040a;
+}
+
+.final-cinematic video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #03040a;
+}
+
+.cinematic-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 120px rgba(0, 0, 0, .62);
+}
+
+.cinematic-header {
+  position: absolute;
+  top: max(18px, env(safe-area-inset-top));
+  left: max(18px, env(safe-area-inset-left));
+  display: grid;
+  gap: 3px;
+  padding: 10px 12px;
+  border-left: 3px solid var(--coral);
+  background: rgba(3, 4, 10, .64);
+  text-shadow: 0 2px 12px #000;
+}
+
+.cinematic-header span {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.cinematic-header strong {
+  font-size: 15px;
+}
+
+.cinematic-controls {
+  position: absolute;
+  right: max(18px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  display: flex;
+  gap: 8px;
+}
+
+.cinematic-controls button {
+  min-width: 88px;
+  min-height: 40px;
+  border: 1px solid rgba(255, 255, 255, .28);
+  border-radius: 7px;
+  color: var(--text);
+  background: rgba(3, 4, 10, .72);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .32);
+  font-size: 12px;
+  font-weight: 850;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+}
+
+.cinematic-controls button:last-child {
+  color: #081015;
+  border-color: transparent;
+  background: var(--amber);
+}
+
+@media (max-width: 720px) {
+  .hud {
+    inset: 12px 12px auto 12px;
+  }
+
+  .objective {
+    max-width: calc(100vw - 178px);
+    padding: 10px 11px;
+  }
+
+  .objective strong {
+    font-size: 13px;
+  }
+
+  .stage-track {
+    gap: 3px;
+    overflow: hidden;
+  }
+
+  .stage-track i {
+    font-size: 9px;
+  }
+
+  .stage-track b {
+    display: none;
+  }
+
+  .status {
+    min-width: 154px;
+    grid-template-columns: 1fr;
+    gap: 7px;
+    padding: 10px;
+  }
+
+  .status strong {
+    font-size: 17px;
+  }
+
+  .status span {
+    font-size: 11px;
+  }
+
+  .status small {
+    font-size: 9px;
+  }
+
+  .touch-pad {
+    display: block;
+  }
+
+  .reset-button {
+    bottom: 20px;
+  }
+
+  .cinematic-header {
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+  }
+
+  .cinematic-header strong {
+    font-size: 13px;
+  }
+
+  .cinematic-controls {
+    right: max(12px, env(safe-area-inset-right));
+    bottom: max(12px, env(safe-area-inset-bottom));
+  }
+
+  .cinematic-controls button {
+    min-width: 80px;
+    min-height: 38px;
+  }
+}
